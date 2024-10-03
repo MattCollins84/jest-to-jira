@@ -1,0 +1,23 @@
+{
+  "name": "jest-to-jira",
+  "version": "1.0.0",
+  "description": "Quickly add tickets to JIRA from failed Jest tests",
+  "main": "build/app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattCollins84/jest-to-jira.git"
+  },
+  "keywords": [
+    "jest",
+    "jira"
+  ],
+  "author": "Matt Collins <matt@strikesandgutters.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MattCollins84/jest-to-jira/issues"
+  },
+  "homepage": "https://github.com/MattCollins84/jest-to-jira#readme"
+}
