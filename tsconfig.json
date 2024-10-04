@@ -1,0 +1,10 @@
+{
+  "extends": "@tsconfig/node20",
+  "include": ["./src/**/*"],
+  "compilerOptions": {
+    "outDir": "./build",
+    "declaration": true,
+    "declarationDir": "./types",
+    "strictNullChecks": false
+  }
+}

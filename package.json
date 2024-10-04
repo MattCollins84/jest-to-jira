@@ -4,7 +4,9 @@
   "description": "Quickly add tickets to JIRA from failed Jest tests",
   "main": "build/app.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "build": "tsc",
+    "build:watch": "tsc -w"
   },
   "repository": {
     "type": "git",
@@ -19,5 +21,15 @@
   "bugs": {
     "url": "https://github.com/MattCollins84/jest-to-jira/issues"
   },
-  "homepage": "https://github.com/MattCollins84/jest-to-jira#readme"
+  "homepage": "https://github.com/MattCollins84/jest-to-jira#readme",
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^22.7.4",
+    "@types/terminal-kit": "^2.5.6",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "jira.js": "^4.0.2",
+    "terminal-kit": "^3.1.1"
+  }
 }
