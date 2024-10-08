@@ -1,5 +1,6 @@
+import { CreatedIssue } from "jira.js/out/version3/models";
 import Config from "./Config";
-import { Version3Client, AgileClient } from "jira.js";
+import { Version3Client, AgileClient, AgileModels } from "jira.js";
 
 interface JIRAProject {
   id: string
@@ -30,6 +31,7 @@ export interface JIRATicket {
   fixVersion: string
   errors: string[]
 }
+  
 export default class JIRA {
 
   private v3: Version3Client;
@@ -111,11 +113,31 @@ export default class JIRA {
     })
   }
 
+  generateSummary(testName: string) {
+    return `Automated test failed - ${testName}`
+  }
+
+  async checkForDuplicateTicket(projectId: string, sprintId: number, ticket: JIRATicket) {
+    const res = await this.v3.issueSearch.searchForIssuesUsingJql({
+      jql: `summary ~ "\\"${this.generateSummary(ticket.test)}\\""`,
+      fields: ['summary', 'status']
+    })
+    // format and filter the matching issues
+    const issues = res.issues.map(issue => {
+      return {
+        key: issue.key,
+        summary: issue.fields.summary,
+        status: issue.fields.status.name
+      }
+    }).filter(issue => issue.status !== 'Done')
+    return issues
+  }
+
   async createTicket(projectId: string, sprintId: number, ticket: JIRATicket) {
-    const res = await this.v3.issues.createIssue({
+    const res: CreatedIssue & { url: string } = await this.v3.issues.createIssue({
       fields: {
         project: { id: projectId },
-        summary: `automated test failure: ${ticket.test}`,
+        summary: this.generateSummary(ticket.test),
         description: {
           type: 'doc',
           version: 1,
@@ -249,6 +271,7 @@ export default class JIRA {
         customfield_10047: { value: 'No' }
       }
     })
+    res.url = `${this.config.get().host}/browse/${res.key}`
     return res
   }
 

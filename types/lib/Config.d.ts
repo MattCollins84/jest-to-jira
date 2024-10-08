@@ -2,6 +2,8 @@ interface ConfigFile {
     host: string;
     email: string;
     apiToken: string;
+    awsAccessKeyId: string;
+    awsSecretAccessKey: string;
 }
 export default class Config {
     private static CONFIG_PATH;

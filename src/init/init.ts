@@ -26,9 +26,11 @@ export default async ({ terminal }: InitOpts): Promise<InitResponse> => {
   const host = await input.text('JIRA Host (e.g. https://your-domain.atlassian.net)');
   const email = await input.text('Email Address');
   const apiToken = await input.text('API Token');
+  const awsAccessKeyId = await input.text('AWS Access Key');
+  const awsSecretAccessKey = await input.text('AWS Secret Key');
   
   // update config
-  const newInput = { host, email, apiToken };
+  const newInput = { host, email, apiToken, awsAccessKeyId, awsSecretAccessKey };
   await config.update(newInput);
 
   return { config }

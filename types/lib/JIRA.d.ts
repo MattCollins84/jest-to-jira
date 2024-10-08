@@ -1,3 +1,4 @@
+import { CreatedIssue } from "jira.js/out/version3/models";
 import Config from "./Config";
 interface JIRAProject {
     id: string;
@@ -48,6 +49,14 @@ export default class JIRA {
             type: string;
         }[];
     }[];
-    createTicket(projectId: string, sprintId: number, ticket: JIRATicket): Promise<import("jira.js/out/version3/models").CreatedIssue>;
+    generateSummary(testName: string): string;
+    checkForDuplicateTicket(projectId: string, sprintId: number, ticket: JIRATicket): Promise<{
+        key: string;
+        summary: string;
+        status: string;
+    }[]>;
+    createTicket(projectId: string, sprintId: number, ticket: JIRATicket): Promise<CreatedIssue & {
+        url: string;
+    }>;
 }
 export {};
